@@ -1,0 +1,12 @@
+{
+  "name": "whatsapp-bulk-outreach",
+  "version": "1.0.0",
+  "description": "WhatsApp Bulk Outreach Tool for OtakuFest Volunteers",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo 'Static site - no build required'"
+  },
+  "keywords": ["whatsapp", "bulk", "outreach", "volunteers"],
+  "author": "Your Name",
+  "license": "MIT"
+} 
