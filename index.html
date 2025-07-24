@@ -3,175 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Bulk Outreach Tool</title>
+    <title>OtakuFest Volunteer Outreach</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --anime-pink: #ffb6c1;
+            --anime-blue: #7ecbff;
+            --anime-yellow: #fff6a9;
+            --anime-green: #baffc9;
+            --anime-purple: #bdb2ff;
+            --anime-bg: #f8f9fa;
+            --anime-header: #fff6a9;
+            --anime-card: #fff;
+            --anime-shadow: 0 8px 32px rgba(127, 127, 255, 0.08);
+            --anime-text: #22223b;
+            --anime-accent: #ffb6c1;
+            --anime-toast-bg: #fff6a9;
+            --anime-toast-text: #232946;
         }
-        
+        body.dark-mode {
+            --anime-bg: #232946;
+            --anime-header: #393e6e;
+            --anime-card: #232946;
+            --anime-shadow: 0 8px 32px rgba(127, 127, 255, 0.18);
+            --anime-text: #f4f4f4;
+            --anime-accent: #bdb2ff;
+            --anime-toast-bg: #393e6e;
+            --anime-toast-text: #fff6a9;
+        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            font-family: 'Quicksand', 'Montserrat', Arial, sans-serif;
+            background: var(--anime-bg) url('https://www.transparenttextures.com/patterns/food.png');
+            background-size: 200px 200px;
+            color: var(--anime-text);
+            transition: background 0.3s, color 0.3s;
             min-height: 100vh;
-            padding: 20px;
         }
-        
+        body.dark-mode {
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+        }
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
+            background: var(--anime-card);
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: var(--anime-shadow);
+            margin: 32px auto;
+            max-width: 1200px;
             overflow: hidden;
         }
-        
         .header {
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: white;
-            padding: 30px;
+            background: linear-gradient(90deg, var(--anime-header), var(--anime-pink), var(--anime-blue));
+            color: var(--anime-text);
+            padding: 32px 0 24px 0;
             text-align: center;
+            position: relative;
         }
-        
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-family: 'Montserrat', 'Quicksand', Arial, sans-serif;
+            font-size: 2.7em;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 8px rgba(255,182,193,0.15);
         }
-        
+        .header .mascot {
+            font-size: 2.2em;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .anime-toggle {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            background: var(--anime-accent);
+            color: var(--anime-text);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 18px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(255,182,193,0.15);
+            transition: background 0.2s, color 0.2s;
+        }
+        .anime-toggle:hover {
+            background: var(--anime-blue);
+            color: #232946;
+        }
         .stats {
             display: flex;
             justify-content: center;
             gap: 30px;
             margin-top: 20px;
         }
-        
         .stat-item {
-            text-align: center;
-            background: rgba(255,255,255,0.2);
-            padding: 15px 25px;
-            border-radius: 10px;
-        }
-        
-        .stat-number {
-            font-size: 2em;
+            background: var(--anime-yellow);
+            color: #232946;
+            border-radius: 12px;
+            padding: 12px 24px;
             font-weight: bold;
+            box-shadow: 0 2px 8px rgba(255,246,169,0.12);
         }
-        
         .content {
-            padding: 30px;
+            padding: 32px;
         }
-        
         .message-template {
-            background: #f8f9fa;
+            background: var(--anime-purple);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
-            border-left: 5px solid #25D366;
+            border-left: 5px solid var(--anime-accent);
+            color: var(--anime-text);
         }
-        
-        .message-template h3 {
-            color: #128C7E;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-        }
-        
-        .template-text {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px dashed #25D366;
-            font-family: monospace;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
         .edit-template {
             width: 100%;
             min-height: 120px;
             padding: 15px;
-            border: 2px solid #e9ecef;
+            border: 2px solid var(--anime-accent);
             border-radius: 10px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 15px;
             resize: vertical;
+            background: var(--anime-card);
+            color: var(--anime-text);
+            margin-bottom: 10px;
         }
-        
         .edit-template:focus {
             outline: none;
-            border-color: #25D366;
+            border-color: var(--anime-blue);
         }
-        
+        .bulk-btn, .copy-btn {
+            background: linear-gradient(90deg, var(--anime-pink), var(--anime-blue));
+            color: #232946;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1em;
+            box-shadow: 0 2px 8px rgba(255,182,193,0.15);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            margin: 4px 0;
+            margin-right: 8px;
+        }
+        .bulk-btn:hover, .copy-btn:hover {
+            background: linear-gradient(90deg, var(--anime-blue), var(--anime-pink));
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 6px 20px rgba(127, 127, 255, 0.18);
+        }
         .volunteers-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
+            gap: 24px;
             margin-top: 30px;
         }
-        
         .volunteer-card {
-            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            background: var(--anime-card);
             border-radius: 15px;
             padding: 20px;
-            border: 2px solid #e9ecef;
-            transition: all 0.3s ease;
+            border: 2px solid var(--anime-accent);
+            box-shadow: 0 4px 16px rgba(127, 127, 255, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
             position: relative;
             overflow: hidden;
+            margin-bottom: 8px;
         }
-        
         .volunteer-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.2);
-            border-color: #25D366;
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 12px 32px rgba(127, 127, 255, 0.18);
+            border-color: var(--anime-blue);
         }
-        
         .volunteer-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
-        
         .volunteer-name {
             font-size: 1.2em;
             font-weight: bold;
-            color: #128C7E;
+            color: var(--anime-accent);
+            letter-spacing: 1px;
         }
-        
         .volunteer-age {
-            background: #25D366;
-            color: white;
-            padding: 5px 10px;
+            background: var(--anime-blue);
+            color: #232946;
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.9em;
+            font-size: 0.95em;
         }
-        
-        .volunteer-info {
-            margin-bottom: 15px;
+        .role-badge {
+            display: inline-block;
+            background: var(--anime-yellow);
+            color: #232946;
+            border-radius: 12px;
+            padding: 2px 10px;
+            font-size: 0.85em;
+            margin: 2px 4px 2px 0;
+            font-weight: 500;
+            box-shadow: 0 1px 4px rgba(255,246,169,0.10);
         }
-        
         .info-item {
             display: flex;
             align-items: center;
             margin-bottom: 8px;
-            font-size: 0.9em;
+            font-size: 0.97em;
         }
-        
         .info-label {
             font-weight: bold;
             color: #666;
             min-width: 80px;
         }
-        
         .info-value {
-            color: #333;
+            color: var(--anime-text);
         }
-        
         .whatsapp-btn {
             width: 100%;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: white;
+            background: linear-gradient(135deg, var(--anime-pink), var(--anime-blue));
+            color: #232946;
             border: none;
             padding: 12px 20px;
             border-radius: 10px;
@@ -183,102 +229,81 @@
             text-align: center;
             margin-bottom: 10px;
         }
-        
         .whatsapp-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
         }
-        
-        .bulk-actions {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .bulk-btn {
-            background: linear-gradient(135deg, #128C7E, #075E54);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-            font-size: 1.1em;
-        }
-        
-        .bulk-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(7, 94, 84, 0.3);
-        }
-        
-        .copy-btn {
-            background: #17a2b8;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9em;
-            margin-left: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .copy-btn:hover {
-            background: #138496;
-        }
-        
         .filter-section {
-            background: #fff;
+            background: var(--anime-card);
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 2px solid #e9ecef;
+            border: 2px solid var(--anime-accent);
         }
-        
         .filter-title {
-            color: #128C7E;
+            color: var(--anime-accent);
             font-size: 1.3em;
             margin-bottom: 15px;
             font-weight: bold;
         }
-        
         .filter-controls {
             display: flex;
             gap: 15px;
             align-items: center;
             flex-wrap: wrap;
         }
-        
         .filter-select {
             padding: 10px 15px;
-            border: 2px solid #e9ecef;
+            border: 2px solid var(--anime-accent);
             border-radius: 8px;
             font-size: 14px;
             min-width: 150px;
+            background: var(--anime-bg);
+            color: var(--anime-text);
         }
-        
         .filter-select:focus {
             outline: none;
-            border-color: #25D366;
+            border-color: var(--anime-blue);
         }
-        
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--anime-toast-bg);
+            color: var(--anime-toast-text);
+            padding: 16px 32px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+            font-size: 1.1em;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(40px);
+        }
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
         @media (max-width: 768px) {
             .volunteers-grid {
                 grid-template-columns: 1fr;
             }
-            
             .stats {
                 flex-direction: column;
                 gap: 15px;
             }
-            
-            .filter-controls {
-                flex-direction: column;
-                align-items: stretch;
+            .content {
+                padding: 12px;
+            }
+            .toast {
+                right: 8px;
+                left: 8px;
+                bottom: 8px;
+                width: auto;
+                padding: 12px 8px;
+                font-size: 1em;
             }
         }
     </style>
@@ -286,7 +311,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚀 OtakuFest Volunteer Outreach</h1>
+            <span class="mascot">🦊✨</span>
+            <h1>OtakuFest Volunteer Outreach</h1>
+            <button class="anime-toggle" onclick="toggleAnimeMode()">🌙/☀️</button>
             <p>Bulk WhatsApp messaging tool for your amazing volunteer team!</p>
             <div class="stats">
                 <div class="stat-item">
@@ -303,10 +330,8 @@
                 </div>
             </div>
         </div>
-        
         <div class="content">
             <div class="message-template">
-                <h3>📱 Message Template</h3>
                 <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
                     <strong>💡 Note:</strong> WhatsApp behavior varies:
                     <ul style="margin: 10px 0 0 20px;">
@@ -314,6 +339,7 @@
                         <li><strong>Existing contacts:</strong> Opens chat with pre-filled message</li>
                     </ul>
                 </div>
+                <h3>📱 Message Template</h3>
                 <textarea class="edit-template" id="messageTemplate" placeholder="Customize your message here...">Hi {name}! 👋
 
 Hope you're doing great! This is regarding your OtakuFest volunteer application.
@@ -331,7 +357,6 @@ Thanks for being part of our amazing community! 🌟
                 <button class="copy-btn" onclick="copyTemplate()">📋 Copy Template</button>
                 <button class="copy-btn" onclick="copyPersonalizedMessages()">📋 Copy All Personalized Messages</button>
             </div>
-            
             <div class="filter-section">
                 <div class="filter-title">🔍 Filter Volunteers</div>
                 <div class="filter-controls">
@@ -341,33 +366,27 @@ Thanks for being part of our amazing community! 🌟
                         <option value="preevent">Available for Pre-Event</option>
                         <option value="both">Available for Both</option>
                     </select>
-                    
                     <select class="filter-select" id="hoursFilter" onchange="filterVolunteers()">
                         <option value="all">All Hour Commitments</option>
                         <option value="5">5 Hours/Week</option>
                         <option value="7">7 Hours/Week</option>
                         <option value="10">10+ Hours/Week</option>
                     </select>
-                    
                     <button class="bulk-btn" onclick="openAllFiltered()">📱 Open All Filtered Chats</button>
                 </div>
             </div>
-            
             <div class="bulk-actions">
-                <h3 style="color: #128C7E; margin-bottom: 20px;">🚀 Bulk Actions</h3>
+                <h3 style="color: var(--anime-accent); margin-bottom: 20px;">🚀 Bulk Actions</h3>
                 <button class="bulk-btn" onclick="openAllChats()">Open All WhatsApp Chats</button>
                 <button class="bulk-btn" onclick="copyAllNumbers()">📋 Copy All Numbers</button>
                 <button class="bulk-btn" onclick="exportCSV()">📊 Export CSV</button>
-                <button class="bulk-btn" onclick="testWhatsAppLinks()">🔍 Test Links</button>
-                <button class="bulk-btn" onclick="testFifthVolunteer()">🎯 Test 5th Volunteer</button>
             </div>
-            
             <div class="volunteers-grid" id="volunteersGrid">
                 <!-- Volunteers will be populated here -->
             </div>
         </div>
     </div>
-
+    <div id="toast" class="toast"></div>
     <script>
         const volunteers = [
             {"name": "Jimoh seu", "age": "19", "phone": "08129616654", "email": "hayorfab@gmail.com", "social": "none", "april26": "Yes", "preevent": "Yes", "hours": "5 hours", "roles": "Cosplay & Gaming Support 🎭🎮, Video Editing & Content Creation 🎥, Event Coordination 🎤"},
@@ -406,53 +425,44 @@ Thanks for being part of our amazing community! 🌟
             {"name": "Adie Rey-martin Adie", "age": "22", "phone": "07084730956", "email": "adiereymartin@gmail.com", "social": "Only_Martin(TikTok)", "april26": "Yes", "preevent": "Yes", "hours": "10 hours", "roles": "Logistics & Security 🚛🔒, Cosplay & Gaming Support 🎭🎮, Graphics & Design 🎨, Event Coordination 🎤"},
             {"name": "Roosevelt Enebeli", "age": "18", "phone": "08165679072", "email": "elbvelt@gmail.com", "social": "@enebeliroosevelt", "april26": "Yes", "preevent": "Yes", "hours": "5 hours", "roles": "Logistics & Security 🚛🔒, Cosplay & Gaming Support 🎭🎮, Event Coordination 🎤"}
         ];
-
         let currentFilter = volunteers;
-
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2200);
+        }
         function generateWhatsAppLink(phone, message) {
             const cleanPhone = phone.replace(/\D/g, '');
             let formattedPhone = cleanPhone;
-            
-            // Handle different phone number formats
             if (cleanPhone.length === 11 && cleanPhone.startsWith('0')) {
-                // Nigerian format: 08123456789 -> 2348123456789
                 formattedPhone = '234' + cleanPhone.substring(1);
             } else if (cleanPhone.length === 10) {
-                // 10 digits: 8123456789 -> 2348123456789
                 formattedPhone = '234' + cleanPhone;
             } else if (cleanPhone.startsWith('234') && (cleanPhone.length === 13 || cleanPhone.length === 14)) {
-                // Already in correct format
                 formattedPhone = cleanPhone;
             } else if (cleanPhone.length === 9) {
-                // 9 digits: 123456789 -> 234123456789
                 formattedPhone = '234' + cleanPhone;
             } else {
-                // Fallback: try to add 234 if it doesn't already have it
                 if (!cleanPhone.startsWith('234')) {
                     formattedPhone = '234' + cleanPhone;
                 } else {
                     formattedPhone = cleanPhone;
                 }
             }
-            
-            // Remove any extra spaces from message and encode
             const trimmedMessage = message.trim();
             const encodedMessage = encodeURIComponent(trimmedMessage);
-            
-            // Check if message is too long (WhatsApp has URL length limits)
             const fullUrl = `https://wa.me/${formattedPhone}?text=${encodedMessage}`;
             if (fullUrl.length > 2000) {
-                console.warn(`Warning: URL too long for ${phone} (${fullUrl.length} characters)`);
-                // Truncate message if too long
-                const maxMessageLength = 1000; // Conservative limit
+                const maxMessageLength = 1000;
                 const truncatedMessage = trimmedMessage.substring(0, maxMessageLength) + '...';
                 const truncatedEncoded = encodeURIComponent(truncatedMessage);
                 return `https://wa.me/${formattedPhone}?text=${truncatedEncoded}`;
             }
-            
             return fullUrl;
         }
-
         function personalizeMessage(template, volunteer) {
             return template
                 .replace(/{name}/g, volunteer.name.split(' ')[0])
@@ -461,31 +471,18 @@ Thanks for being part of our amazing community! 🌟
                 .replace(/{hours}/g, volunteer.hours)
                 .replace(/{age}/g, volunteer.age);
         }
-
+        function createRoleBadges(roles) {
+            return roles.split(',').map(role => `<span class="role-badge">${role.trim()}</span>`).join(' ');
+        }
         function createVolunteerCard(volunteer) {
             const template = document.getElementById('messageTemplate').value;
             const personalizedMessage = personalizeMessage(template, volunteer);
             const whatsappLink = generateWhatsAppLink(volunteer.phone, personalizedMessage);
-            
-            // Debug WhatsApp link generation for all volunteers
-            console.log(`${volunteer.name}: Original: ${volunteer.phone}, WhatsApp Link: ${whatsappLink}`);
-            
-            // Special debug for 5th volunteer (Faith Odunlami)
-            if (volunteer.name.toLowerCase().includes('faith odunlami')) {
-                console.log('=== DEBUG: Faith Odunlami ===');
-                console.log('Original phone:', volunteer.phone);
-                console.log('Template:', template);
-                console.log('Personalized message:', personalizedMessage);
-                console.log('WhatsApp link:', whatsappLink);
-                console.log('Encoded message length:', encodeURIComponent(personalizedMessage.trim()).length);
-                console.log('========================');
-            }
-            
             return `
                 <div class="volunteer-card" data-april26="${volunteer.april26}" data-preevent="${volunteer.preevent}" data-hours="${volunteer.hours}">
                     <div class="volunteer-header">
                         <div class="volunteer-name">${volunteer.name}</div>
-                        <div class="volunteer-age">${volunteer.age} years</div>
+                        <div class="volunteer-age">${volunteer.age} yrs</div>
                     </div>
                     <div class="volunteer-info">
                         <div class="info-item">
@@ -506,7 +503,7 @@ Thanks for being part of our amazing community! 🌟
                         </div>
                         <div class="info-item">
                             <span class="info-label">💼 Roles:</span>
-                            <span class="info-value">${volunteer.roles.substring(0, 50)}...</span>
+                            <span class="info-value">${createRoleBadges(volunteer.roles)}</span>
                         </div>
                     </div>
                     <a href="${whatsappLink}" target="_blank" class="whatsapp-btn">
@@ -515,19 +512,15 @@ Thanks for being part of our amazing community! 🌟
                 </div>
             `;
         }
-
         function renderVolunteers(volunteersToRender = volunteers) {
             const grid = document.getElementById('volunteersGrid');
             grid.innerHTML = volunteersToRender.map(createVolunteerCard).join('');
             currentFilter = volunteersToRender;
         }
-
         function filterVolunteers() {
             const availabilityFilter = document.getElementById('availabilityFilter').value;
             const hoursFilter = document.getElementById('hoursFilter').value;
-            
             let filtered = volunteers;
-            
             if (availabilityFilter !== 'all') {
                 switch(availabilityFilter) {
                     case 'april26':
@@ -541,7 +534,6 @@ Thanks for being part of our amazing community! 🌟
                         break;
                 }
             }
-            
             if (hoursFilter !== 'all') {
                 if (hoursFilter === '10') {
                     filtered = filtered.filter(v => parseInt(v.hours) >= 10);
@@ -549,10 +541,8 @@ Thanks for being part of our amazing community! 🌟
                     filtered = filtered.filter(v => v.hours.includes(hoursFilter));
                 }
             }
-            
             renderVolunteers(filtered);
         }
-
         function openAllChats() {
             const template = document.getElementById('messageTemplate').value;
             volunteers.forEach((volunteer, index) => {
@@ -560,10 +550,9 @@ Thanks for being part of our amazing community! 🌟
                     const personalizedMessage = personalizeMessage(template, volunteer);
                     const whatsappLink = generateWhatsAppLink(volunteer.phone, personalizedMessage);
                     window.open(whatsappLink, '_blank');
-                }, index * 1000); // 1 second delay between each
+                }, index * 1000);
             });
         }
-
         function openAllFiltered() {
             const template = document.getElementById('messageTemplate').value;
             currentFilter.forEach((volunteer, index) => {
@@ -574,33 +563,28 @@ Thanks for being part of our amazing community! 🌟
                 }, index * 1000);
             });
         }
-
         function copyAllNumbers() {
             const numbers = volunteers.map(v => v.phone).join('\n');
             navigator.clipboard.writeText(numbers).then(() => {
-                alert('📋 All phone numbers copied to clipboard!');
+                showToast('📋 All phone numbers copied to clipboard!');
             });
         }
-
         function copyTemplate() {
             const template = document.getElementById('messageTemplate').value;
             navigator.clipboard.writeText(template).then(() => {
-                alert('📋 Message template copied to clipboard!');
+                showToast('📋 Message template copied to clipboard!');
             });
         }
-        
         function copyPersonalizedMessages() {
             const template = document.getElementById('messageTemplate').value;
             const messages = volunteers.map(volunteer => {
                 const personalizedMessage = personalizeMessage(template, volunteer);
                 return `${volunteer.name} (${volunteer.phone}):\n${personalizedMessage}\n\n---\n\n`;
             }).join('');
-            
             navigator.clipboard.writeText(messages).then(() => {
-                alert('📋 All personalized messages copied to clipboard! You can paste them manually for new contacts.');
+                showToast('📋 All personalized messages copied!');
             });
         }
-
         function exportCSV() {
             const headers = ['Name', 'Age', 'Phone', 'Email', 'Social Media', 'Available April 26', 'Pre-Event Available', 'Hours/Week', 'Roles'];
             const csvContent = [
@@ -617,7 +601,6 @@ Thanks for being part of our amazing community! 🌟
                     `"${v.roles}"`
                 ].join(','))
             ].join('\n');
-
             const blob = new Blob([csvContent], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -627,61 +610,26 @@ Thanks for being part of our amazing community! 🌟
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+            showToast('📊 CSV exported!');
         }
-
-        // Test function to check WhatsApp links
-        function testWhatsAppLinks() {
-            console.log('=== Testing WhatsApp Links ===');
-            volunteers.forEach((volunteer, index) => {
-                const template = document.getElementById('messageTemplate').value;
-                const personalizedMessage = personalizeMessage(template, volunteer);
-                const whatsappLink = generateWhatsAppLink(volunteer.phone, personalizedMessage);
-                console.log(`${index + 1}. ${volunteer.name}:`);
-                console.log(`   Original: ${volunteer.phone}`);
-                console.log(`   Formatted: ${whatsappLink.split('wa.me/')[1].split('?')[0]}`);
-                console.log(`   Link: ${whatsappLink}`);
-                console.log(`   URL Length: ${whatsappLink.length}`);
-                console.log('---');
-            });
+        function toggleAnimeMode() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('animeMode', 'dark');
+            } else {
+                localStorage.setItem('animeMode', 'light');
+            }
         }
-        
-        // Test specific volunteer (5th one)
-        function testFifthVolunteer() {
-            const volunteer = volunteers[4]; // 5th volunteer (index 4)
-            console.log('=== Testing 5th Volunteer (Faith Odunlami) ===');
-            console.log('Name:', volunteer.name);
-            console.log('Phone:', volunteer.phone);
-            
-            const template = document.getElementById('messageTemplate').value;
-            const personalizedMessage = personalizeMessage(template, volunteer);
-            const whatsappLink = generateWhatsAppLink(volunteer.phone, personalizedMessage);
-            
-            console.log('Template:', template);
-            console.log('Personalized Message:', personalizedMessage);
-            console.log('WhatsApp Link:', whatsappLink);
-            console.log('URL Length:', whatsappLink.length);
-            console.log('Formatted Phone:', whatsappLink.split('wa.me/')[1].split('?')[0]);
-            
-            // Test if the link opens
-            window.open(whatsappLink, '_blank');
-            console.log('========================');
-        }
-
-        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('animeMode') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
             renderVolunteers();
-            // Update message template when changed
             document.getElementById('messageTemplate').addEventListener('input', function() {
                 renderVolunteers(currentFilter);
             });
-            
-            // Test WhatsApp links on load
-            setTimeout(testWhatsAppLinks, 1000);
         });
     </script>
-    
-    </body>
-    </html>
 </body>
 </html>
        
